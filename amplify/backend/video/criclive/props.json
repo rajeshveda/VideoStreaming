@@ -1,0 +1,28 @@
+{
+    "shared": {
+        "resourceName": "criclive",
+        "bucket": "amplify-cricsports-dev-204953-deployment"
+    },
+    "channel": {
+        "channelQuality": "BASIC",
+        "channelLatency": "LOW",
+        "cvsEnable": "vms"
+    },
+    "status": {
+        "reportStatus": false
+    },
+    "parameters": {
+        "GraphQLAPIId": {
+            "Fn::GetAtt": [
+                "apiVideoManagementApi",
+                "Outputs.GraphQLAPIIdOutput"
+            ]
+        },
+        "GraphQLEndpoint": {
+            "Fn::GetAtt": [
+                "apiVideoManagementApi",
+                "Outputs.GraphQLAPIEndpointOutput"
+            ]
+        }
+    }
+}

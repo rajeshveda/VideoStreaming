@@ -1,0 +1,13 @@
+{
+    "AppSyncApiName": "VideoManagementApi",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "DynamoDBEnableServerSideEncryption": false,
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authVideoAuth",
+            "Outputs.UserPoolId"
+        ]
+    },
+    "S3DeploymentBucket": "amplify-cricsports-dev-204953-deployment",
+    "S3DeploymentRootKey": "amplify-appsync-files/5b475c66c8db7376faa0413c1e91f4869835db4b"
+}

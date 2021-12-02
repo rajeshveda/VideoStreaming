@@ -1,0 +1,93 @@
+{
+  "providers": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-cricsports-dev-204953-authRole",
+      "UnauthRoleArn": "arn:aws:iam::759548929305:role/amplify-cricsports-dev-204953-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::759548929305:role/amplify-cricsports-dev-204953-authRole",
+      "Region": "us-west-2",
+      "DeploymentBucketName": "amplify-cricsports-dev-204953-deployment",
+      "UnauthRoleName": "amplify-cricsports-dev-204953-unauthRole",
+      "StackName": "amplify-cricsports-dev-204953",
+      "StackId": "arn:aws:cloudformation:us-west-2:759548929305:stack/amplify-cricsports-dev-204953/67ee25a0-53b1-11ec-b158-02b544d00803",
+      "AmplifyAppId": "dlk0oxoxzohmx"
+    }
+  },
+  "auth": {
+    "VideoAuth": {
+      "service": "Cognito",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
+      "customAuth": false,
+      "frontendAuthConfig": {
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyMinLength": 8,
+          "passwordPolicyCharacters": []
+        },
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "verificationMechanisms": []
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-cricsports-dev-204953-deployment/amplify-cfn-templates/auth/VideoAuth-cloudformation-template.json",
+        "logicalId": "authVideoAuth"
+      },
+      "lastPushTimeStamp": "2021-12-02T21:04:44.903Z",
+      "output": {
+        "UserPoolId": "us-west-2_d9dtvkV7M",
+        "AppClientIDWeb": "47f2ud4u9so2bo6lhlrrdsp4eu",
+        "AppClientID": "3e45jrk7u2l52lav2asfk08u9",
+        "IdentityPoolId": "us-west-2:06dc2292-a902-4321-850b-3df77a4f42a1",
+        "UserPoolArn": "arn:aws:cognito-idp:us-west-2:759548929305:userpool/us-west-2_d9dtvkV7M",
+        "IdentityPoolName": "VideoAuth_identitypool_302f0e85__dev",
+        "UserPoolName": "VideoAuth_userpool_302f0e85"
+      },
+      "lastPushDirHash": "E7SZaT/9F7PH5uIKX5y9bn1JpM0="
+    }
+  },
+  "api": {
+    "VideoManagementApi": {
+      "service": "AppSync",
+      "providerPlugin": "awscloudformation",
+      "output": {
+        "authConfig": {
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {}
+          },
+          "additionalAuthenticationProviders": []
+        },
+        "GraphQLAPIIdOutput": "5brpz5eppjawzm4udbnfup52q4",
+        "GraphQLAPIEndpointOutput": "https://tszmrktaqrdaheigul44gbfdvy.appsync-api.us-west-2.amazonaws.com/graphql"
+      },
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-cricsports-dev-204953-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "logicalId": "apiVideoManagementApi"
+      },
+      "lastPushTimeStamp": "2021-12-02T21:04:44.903Z",
+      "lastPushDirHash": "an9IqmlgXLg6u5L7ACPdzubEq4Q="
+    }
+  },
+  "video": {
+    "criclive": {
+      "service": "video",
+      "serviceType": "ivs",
+      "providerPlugin": "awscloudformation",
+      "providerMetadata": {
+        "s3TemplateURL": "https://s3.amazonaws.com/amplify-cricsports-dev-204953-deployment/amplify-cfn-templates/video/criclive-ivs-workflow-template.yaml",
+        "logicalId": "videocriclive"
+      },
+      "lastPushTimeStamp": "2021-12-02T21:04:44.903Z",
+      "output": {
+        "oLambdaArn": "channelManager-dev"
+      },
+      "lastPushDirHash": "cPeEykRQx3FUKoBBhUA08uRAgE0="
+    }
+  }
+}

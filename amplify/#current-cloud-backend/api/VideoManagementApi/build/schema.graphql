@@ -1,0 +1,183 @@
+
+type Channel {
+  id: ID!
+  title: String!
+  description: String!
+  streamKey: String
+  channelArn: String
+  streamURL: String
+  streamKeyArn: String
+  ingestEndpoint: String
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+  owner: String
+}
+
+type Mutation {
+  createStreamKey(id: ID): Channel
+  createChannel(input: CreateChannelInput!, condition: ModelChannelConditionInput): Channel
+  updateChannel(input: UpdateChannelInput!, condition: ModelChannelConditionInput): Channel
+  deleteChannel(input: DeleteChannelInput!, condition: ModelChannelConditionInput): Channel
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelChannelConnection {
+  items: [Channel!]!
+  nextToken: String
+}
+
+input ModelChannelFilterInput {
+  id: ModelIDInput
+  title: ModelStringInput
+  description: ModelStringInput
+  streamKey: ModelStringInput
+  channelArn: ModelStringInput
+  streamURL: ModelStringInput
+  streamKeyArn: ModelStringInput
+  ingestEndpoint: ModelStringInput
+  and: [ModelChannelFilterInput]
+  or: [ModelChannelFilterInput]
+  not: ModelChannelFilterInput
+}
+
+type Query {
+  getChannel(id: ID!): Channel
+  listChannels(id: ID, filter: ModelChannelFilterInput, limit: Int, nextToken: String, sortDirection: ModelSortDirection): ModelChannelConnection
+  channelByArn(channelArn: String, sortDirection: ModelSortDirection, filter: ModelChannelFilterInput, limit: Int, nextToken: String): ModelChannelConnection
+}
+
+input ModelChannelConditionInput {
+  title: ModelStringInput
+  description: ModelStringInput
+  streamKey: ModelStringInput
+  channelArn: ModelStringInput
+  streamURL: ModelStringInput
+  streamKeyArn: ModelStringInput
+  ingestEndpoint: ModelStringInput
+  and: [ModelChannelConditionInput]
+  or: [ModelChannelConditionInput]
+  not: ModelChannelConditionInput
+}
+
+input CreateChannelInput {
+  id: ID
+  title: String!
+  description: String!
+  streamKey: String
+  channelArn: String
+  streamURL: String
+  streamKeyArn: String
+  ingestEndpoint: String
+}
+
+input UpdateChannelInput {
+  id: ID!
+  title: String
+  description: String
+  streamKey: String
+  channelArn: String
+  streamURL: String
+  streamKeyArn: String
+  ingestEndpoint: String
+}
+
+input DeleteChannelInput {
+  id: ID!
+}
+
+type Subscription {
+  onCreateChannel(owner: String): Channel @aws_subscribe(mutations: ["createChannel"])
+  onUpdateChannel(owner: String): Channel @aws_subscribe(mutations: ["updateChannel"])
+  onDeleteChannel(owner: String): Channel @aws_subscribe(mutations: ["deleteChannel"])
+}
+

@@ -1,0 +1,69 @@
+Description: >-
+  {"createdOn":"Linux","createdBy":"Amplify","createdWith":"7.6.1","stackType":"video-video","metadata":{}}
+Parameters:
+  env:
+    Type: String
+    Description: The environment name. e.g. Dev, Test, or Production.
+    Default: NONE
+  pS3:
+    Type: String
+    Description: Store template and lambda package
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9-_]*'
+    Default: amplify-cricsports-dev-204953-deployment
+  pSourceFolder:
+    Type: String
+    Description: Store template and lambda package
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9-_]*'
+    Default: ivs-helpers
+  pProjectName:
+    Type: String
+    Description: ProjectName
+    AllowedPattern: '[a-zA-Z][a-zA-Z0-9-_]*'
+    Default: criclive
+  pLatencyMode:
+    Type: String
+    Description: Latency Mode for IVS-Channel
+    Default: LOW
+  pQuality:
+    Type: String
+    Description: Quality of channel
+    Default: BASIC
+  GraphQLAPIId:
+    Type: String
+    Description: API ID
+    Default: NONE
+  GraphQLEndpoint:
+    Type: String
+    Description: API Endpoint URL
+    Default: NONE
+Conditions:
+  HasEnvironmentParameter:
+    Fn::Not:
+      - Fn::Equals:
+          - Ref: env
+          - NONE
+Resources:
+  rChannelManagerLambda:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL:
+        Fn::Sub: >-
+          https://s3.amazonaws.com/${pS3}/${pSourceFolder}/Lambda-ChannelManager.template
+      Parameters:
+        pS3:
+          Ref: pS3
+        env:
+          Ref: env
+        pLatencyMode:
+          Ref: pLatencyMode
+        pQuality:
+          Ref: pQuality
+        GraphQLAPIId:
+          Ref: GraphQLAPIId
+        pFunctionHash: 7966394141574239426e
+Outputs:
+  oLambdaArn:
+    Value:
+      Fn::GetAtt:
+        - rChannelManagerLambda
+        - Outputs.LambdaArn
